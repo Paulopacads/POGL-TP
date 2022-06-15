@@ -7,11 +7,11 @@ namespace MyGL {
     class Matrix4 {
     public:
         Matrix4();
-        Matrix4(const double[16]);
+        Matrix4(const float[16]);
         void operator*=(const Matrix4&);
-        double operator[](const size_t) const;
-        double& operator[](const size_t);
-        double *get_ptr();
+        float operator[](const size_t) const;
+        float& operator[](const size_t);
+        float *get_ptr();
 
         static Matrix4 identity() {
             Matrix4 mat = Matrix4();
@@ -20,7 +20,7 @@ namespace MyGL {
         }
 
     private:
-        double _content[16] = { 0 };
+        float _content[16] = { 0 };
     };
 };
 

@@ -3,15 +3,15 @@
 #include <cmath>
 
 namespace MyGL {
-    Matrix4 lookAt(const double &eyeX, const double &eyeY,
-                const double &eyeZ, const double &centerX,
-                const double &centerY, const double &centerZ,
-                const double &upX, const double &upY,
-                const double &upZ) {
+    Matrix4 lookAt(const float &eyeX, const float &eyeY,
+                const float &eyeZ, const float &centerX,
+                const float &centerY, const float &centerZ,
+                const float &upX, const float &upY,
+                const float &upZ) {
         Matrix4 mat = Matrix4();
-        double forward[3];
-        double side[3];
-        double up[3];
+        float forward[3];
+        float side[3];
+        float up[3];
 
         forward[0] = centerX - eyeX;
         forward[1] = centerY - eyeY;
@@ -21,7 +21,7 @@ namespace MyGL {
         up[1] = upY;
         up[2] = upZ;
 
-        double tmp = 0;
+        float tmp = 0;
         for (size_t i = 0; i < 3; ++i)
             tmp += forward[i] * forward[i];
 
@@ -61,8 +61,8 @@ namespace MyGL {
         return mat;
     }
 
-    Matrix4 frustum(double left, double right, double bottom,
-                   double top, double nearVal, double farVal) {
+    Matrix4 frustum(float left, float right, float bottom,
+                   float top, float nearVal, float farVal) {
         Matrix4 mat = Matrix4();
 
         mat[0] = 2 * nearVal / (right - left);
@@ -71,8 +71,8 @@ namespace MyGL {
         mat[5] = 2 * nearVal / (top - bottom);
         mat[6] = (top + bottom) / (top - bottom);
 
-        mat[10] = (farVal + nearVal) / (farVal - nearVal);
-        mat[11] = 2 * farVal * nearVal / (farVal - nearVal);
+        mat[10] = -(farVal + nearVal) / (farVal - nearVal);
+        mat[11] = -2 * farVal * nearVal / (farVal - nearVal);
 
         mat[14] = -1;
 

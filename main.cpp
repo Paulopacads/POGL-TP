@@ -2,6 +2,7 @@
 #include <GL/freeglut.h>
 #include <iostream>
 
+#include "gl_utils.hpp"
 #include "program.hpp"
 #include "object_vbo.hpp"
 
@@ -80,14 +81,16 @@ bool init_pov() {
     if (world_camera_location == -1)
         return false;
 
-    glUniformMatrix4fv(world_camera_location, 1, false, wc_array);TEST_OPENGL_ERROR();
+    MyGL::Matrix4 matrix = MyGL::lookAt(0, 4, 0, 2, 0, 1, 0, 0, 1);
+    glUniformMatrix4fv(world_camera_location, 1, false, matrix.get_ptr());TEST_OPENGL_ERROR();
 
     int projection_location = glGetUniformLocation(program->get_program_id(), "projection");TEST_OPENGL_ERROR();
 
     if (projection_location == -1)
         return false;
 
-    glUniformMatrix4fv(projection_location, 1, false, p_array);TEST_OPENGL_ERROR();
+    matrix = MyGL::frustum(-3, 3, -3, 3, 2, 300);
+    glUniformMatrix4fv(projection_location, 1, false, matrix.get_ptr());TEST_OPENGL_ERROR();
 
     return true;
 }

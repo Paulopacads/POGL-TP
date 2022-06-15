@@ -3,13 +3,13 @@
 namespace MyGL {
     Matrix4::Matrix4() {}
 
-    Matrix4::Matrix4(const double content[16]) {
+    Matrix4::Matrix4(const float content[16]) {
         for (size_t i = 0; i < 16; ++i)
             _content[i] = content[i];
     }
 
     void Matrix4::operator*=(const Matrix4& rhs) {
-        double tmp[4] = { 0 };
+        float tmp[4] = { 0 };
         for (size_t i = 0; i < 4; ++i) {
             for (size_t j = 0; j < 4; ++j)
                 for (size_t k = 0; k < 4; ++k)
@@ -20,15 +20,15 @@ namespace MyGL {
         }
     }
 
-    double Matrix4::operator[](const size_t i) const {
+    float Matrix4::operator[](const size_t i) const {
         return _content[i];
     }
 
-    double& Matrix4::operator[](const size_t i) {
+    float& Matrix4::operator[](const size_t i) {
         return _content[i];
     }
 
-    double *Matrix4::get_ptr() {
+    float *Matrix4::get_ptr() {
         return _content;
     }
 }
